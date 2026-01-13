@@ -15,24 +15,27 @@ interface KPICardProps {
 
 export function KPICard({ title, value, icon: Icon, trend, className }: KPICardProps) {
   return (
-    <Card className={cn("", className)}>
+    <Card
+      className={cn(
+        "relative overflow-hidden transition-all duration-300 hover:shadow-lg hover:scale-[1.02] border-border/50",
+        className,
+      )}
+    >
       <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
         <CardTitle className="text-sm font-medium text-muted-foreground">{title}</CardTitle>
-        <Icon className="h-5 w-5 text-muted-foreground" />
+        <div className="rounded-full bg-primary/10 p-2">
+          <Icon className="h-5 w-5 text-primary" />
+        </div>
       </CardHeader>
       <CardContent>
-        <div className="text-2xl font-bold">{value}</div>
+        <div className="text-2xl font-bold tracking-tight">{value}</div>
         {trend && (
-          <p
-            className={cn(
-              "text-xs",
-              trend.isPositive ? "text-green-600 dark:text-green-400" : "text-red-600 dark:text-red-400",
-            )}
-          >
+          <p className={cn("text-xs font-medium mt-1", trend.isPositive ? "text-success" : "text-destructive")}>
             {trend.value}
           </p>
         )}
       </CardContent>
+      <div className="absolute -right-6 -top-6 h-20 w-20 rounded-full bg-primary/5 blur-2xl" />
     </Card>
   )
 }
